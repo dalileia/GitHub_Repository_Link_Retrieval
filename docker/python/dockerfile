@@ -1,0 +1,32 @@
+FROM python:3.10.11-bullseye
+
+ENV DEBIAN_FRONTEND noninteractive
+ENV PYTHONUNBUFFERED 1
+
+RUN yes | apt-get update 
+RUN apt-get install -y locales libffi-dev libssl-dev vim
+
+RUN echo "pt_BR.UTF-8 UTF-8" > /etc/locale.gen && \
+	locale-gen pt_BR.UTF-8 && \
+	dpkg-reconfigure locales && \
+	/usr/sbin/update-locale LANG=pt_BR.UTF-8
+
+RUN unlink /etc/localtime && ln -s /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime
+
+RUN apt-get install -y gcc
+RUN apt-get install -y g++
+
+RUN pip install --upgrade pip
+RUN pip install Cmake
+RUN pip install "uWSGI~=2.0.20"
+RUN pip install "Flask-RESTful~=0.3.9"
+RUN pip install "Flask-Compress~=1.13"
+RUN pip install "passlib==1.7.4"
+RUN pip install "Flask-Bcrypt==1.0.1"
+RUN pip install "Flask-Cors==3.0.10"
+RUN pip install "beautifulsoup4==4.12.2"
+RUN pip install "lxml==4.9.2"
+RUN pip install "html5lib==1.1"
+RUN pip install "pytest==7.4.0"
+
+WORKDIR /product

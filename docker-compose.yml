@@ -1,0 +1,12 @@
+version: '3' 
+services:
+  python:
+    restart: always
+    build:
+      context: ./docker/python/
+      dockerfile: dockerfile
+    command: bash start.sh
+    volumes:
+      - ./backend/product:/product
+    ports:
+      - "4999:5000"

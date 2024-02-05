@@ -7,6 +7,6 @@ services:
       dockerfile: dockerfile
     command: bash start.sh
     volumes:
-      - ./backend/product:/product
+      - ./src/product:/product
     ports:
       - "4999:5000"
